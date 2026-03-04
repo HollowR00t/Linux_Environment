@@ -24,6 +24,23 @@ else
     exit 1
 fi
 
+# 1.5 Descargar e instalar Hack Nerd Font (Universal)
+echo "[*] Descargando e instalando Hack Nerd Font para los íconos..."
+# Asegurar que existan las herramientas necesarias
+if command -v apt &> /dev/null; then sudo apt install -y wget unzip; fi
+if command -v dnf &> /dev/null; then sudo dnf install -y wget unzip; fi
+
+# Crear carpeta de fuentes local si no existe
+mkdir -p ~/.local/share/fonts
+
+# Descargar, descomprimir y limpiar
+wget -q -P /tmp https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip
+unzip -q -o /tmp/Hack.zip -d ~/.local/share/fonts/
+rm /tmp/Hack.zip
+
+# Actualizar el caché de fuentes del sistema
+fc-cache -fv
+
 # 2. Crear el directorio principal de configuraciones si no existe
 echo "[*] Preparando directorios..."
 mkdir -p ~/.config
