@@ -11,7 +11,7 @@ else
         echo " $ip"
         #$essid($signal%)"
     else
-        echo " sin red"
+        echo " no signal"
     fi
 fi
 
