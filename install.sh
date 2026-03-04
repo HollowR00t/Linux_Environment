@@ -1,45 +1,53 @@
-#/bin/bash
+#!/bin/bash
 
 echo "[*] Iniciando la instalación de tu entorno Red Team..."
 
-# 1. Detectar el gestor de paquetes e instalar dependencias
-echo "[*] Detectando tu distribución de Linux..."
+# 1. Menú interactivo para elegir la distribución
+echo "[*] ¿En qué familia de Linux estás instalando el entorno?"
+echo "  1) Arch Linux / Manjaro (pacman)"
+echo "  2) Debian / Ubuntu / Kali Linux (apt)"
+echo "  3) Fedora (dnf)"
+echo ""
+read -p "[?] Ingresa el número de tu opción (1, 2 o 3): " distro
 
-if command -v pacman &> /dev/null; then
-    echo "[+] Arch Linux detectado. Usando pacman..."
-    sudo pacman -Syu --needed bspwm sxhkd polybar rofi kitty picom zsh zsh-theme-powerlevel10k obsidian ttf-hack-nerd
-
-elif command -v apt &> /dev/null; then
-    echo "[+] Debian/Ubuntu/Kali detectado. Usando apt..."
-    sudo apt update
-    sudo apt install -y bspwm sxhkd polybar rofi kitty picom zsh fonts-hack-ttf
-
-elif command -v dnf &> /dev/null; then
-    echo "[+] Fedora detectado. Usando dnf..."
-    sudo dnf install -y bspwm sxhkd polybar rofi kitty picom zsh
-
-else
-    echo "[!] No se reconoció el gestor de paquetes (pacman, apt o dnf)."
-    echo "[!] Por favor, instala las dependencias manualmente."
-    exit 1
-fi
-
-# 1.5 Descargar e instalar Hack Nerd Font (Universal)
-echo "[*] Descargando e instalando Hack Nerd Font para los íconos..."
-# Asegurar que existan las herramientas necesarias
-if command -v apt &> /dev/null; then sudo apt install -y wget unzip; fi
-if command -v dnf &> /dev/null; then sudo dnf install -y wget unzip; fi
-
-# Crear carpeta de fuentes local si no existe
-mkdir -p ~/.local/share/fonts
-
-# Descargar, descomprimir y limpiar
-wget -q -P /tmp https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip
-unzip -q -o /tmp/Hack.zip -d ~/.local/share/fonts/
-rm /tmp/Hack.zip
-
-# Actualizar el caché de fuentes del sistema
-fc-cache -fv
+case $distro in
+    1)
+        echo "[+] Arch Linux seleccionado. Descargando paquetes..."
+        sudo pacman -Syu --needed bspwm sxhkd polybar rofi kitty picom zsh zsh-theme-powerlevel10k obsidian ttf-hack-nerd feh
+        ;;
+    2)
+        echo "[+] Debian/Ubuntu/Kali seleccionado. Descargando paquetes..."
+        sudo apt update
+        # Agregamos wget, unzip y feh directamente aquí
+        sudo apt install -y bspwm sxhkd polybar rofi kitty picom zsh fonts-hack-ttf feh wget unzip
+        
+        echo "[*] Descargando Hack Nerd Font para los íconos..."
+        mkdir -p ~/.local/share/fonts
+        # Usamos --show-progress para que el alumno vea cuánto falta
+        wget --show-progress -q -P /tmp https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip
+        echo "[*] Descomprimiendo e instalando fuentes..."
+        unzip -q -o /tmp/Hack.zip -d ~/.local/share/fonts/
+        rm /tmp/Hack.zip
+        fc-cache -fv
+        ;;
+    3)
+        echo "[+] Fedora seleccionado. Descargando paquetes..."
+        # Agregamos wget, unzip y feh directamente aquí
+        sudo dnf install -y bspwm sxhkd polybar rofi kitty picom zsh feh wget unzip
+        
+        echo "[*] Descargando Hack Nerd Font para los íconos..."
+        mkdir -p ~/.local/share/fonts
+        wget --show-progress -q -P /tmp https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip
+        echo "[*] Descomprimiendo e instalando fuentes..."
+        unzip -q -o /tmp/Hack.zip -d ~/.local/share/fonts/
+        rm /tmp/Hack.zip
+        fc-cache -fv
+        ;;
+    *)
+        echo "[!] Opción no válida. Por favor, ejecuta el script de nuevo e ingresa 1, 2 o 3."
+        exit 1
+        ;;
+esac
 
 # 2. Crear el directorio principal de configuraciones si no existe
 echo "[*] Preparando directorios..."
