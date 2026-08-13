@@ -3,9 +3,9 @@
  **/
 * {
     /* --- TUS COLORES --- */
-    bg: #0E0F1A;
-    fg: #F4E4DC;
-    sel: #4B2C73;
+    bg: #000000;
+    fg: #c5c8c6;
+    sel: #FF0033;
 
     /* --- VARIABLES DE ROFI APUNTANDO A TUS COLORES --- */
     background-color:            transparent;

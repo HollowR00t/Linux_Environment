@@ -142,15 +142,15 @@ Print
 
 # Captura de ventana 
 super + shift + s
-  flameshot gui
+  flameshot gui > /dev/null 2>&1
 
 # Brave
 super + shift + g
-	brave
+  brave
 
 #Obsidian
 super + shift + o
-  obsidian
+  obsidian > /dev/null 2>&1
 
 # Open Burpsuite Professional
 super + ctrl + b
@@ -166,5 +166,13 @@ super + shift + F6
 
 # Mute toggle (Alt+v luego m)
 alt + v + m
-    wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+  wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+
+# Up bright
+super + shift + F3
+  brightnessctl set +10%
+
+# Down bright
+super + shift + F2
+  brightnessctl set 10%-
 

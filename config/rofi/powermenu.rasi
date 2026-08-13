@@ -7,9 +7,9 @@ configuration {
 
 /* --- Paleta como variables --- */
 * {
-  bg:        #0E0F1A;   /* Fondo */
-  fg:        #F4E4DC;   /* Texto */
-  sel:       #4B2C73;   /* Seleccionado */
+  bg:        #000000;   /* Fondo */
+  fg:        #c5c8c6;   /* Texto */
+  sel:       #FF0033;   /* Seleccionado */
   font: "Hack Nerd Font 12";
 }
 
@@ -45,11 +45,11 @@ element {
 element-text { 
   highlight: bold italic;
   text-color: @fg; 
-  background-color: #0E0F1A;
+  background-color: inherit;
 }
 element selected {
   background-color: @sel;
-  text-color: @fg;
+  text-color: #ffffff;
   border-radius: 6px;
 }
 

@@ -5,15 +5,18 @@ configuration {
 }
 
 * {
-  bg: #0E0F1A;
-  fg: #F4E4DC;
-  sel: #4B2C73;
+  /* Paleta Red Team Stealth */
+  //bg: #1A1A1A;
+  bg: #000000;
+  fg: #c5c8c6;
+  sel: #FF0033;
   font: "Hack Nerd Font 12";
 }
 
 window {
   background-color: @bg;
-  border: 0;
+  border: 1px;
+  border-color: #333333;
   border-radius: 8px;
   padding: 10px;
   width: 30%;
@@ -38,13 +41,14 @@ element {
 
 element-text {
   highlight: bold italic;
-  text-color: @fg;
-  background-color: @bg;
+  /* El truco mágico: heredar color para no dejar "parches" negros */
+  text-color: inherit;
+  background-color: inherit;
 }
 
 element selected {
   background-color: @sel;
-  text-color: @fg;
+  text-color: #ffffff; /* Texto blanco puro para máximo contraste sobre el rojo láser */
   border-radius: 6px;
 }
 
@@ -58,11 +62,11 @@ inputbar {
 
 prompt {
   background-color: @bg;
-  text-color: @fg;
+  text-color: @sel; /* El texto "Wi-Fi" ahora brilla en rojo */
   padding: 0 6px 0 0;
+  font: "Hack Nerd Font Bold 12";
 }
 
-/* El ":" que rofi añade después del prompt es otro widget */
 textbox-prompt-colon {
   background-color: @bg;
   text-color: @fg;
@@ -78,9 +82,9 @@ entry {
 mainbox { 
   children: [ message, inputbar, listview ]; 
 }
+
 message { 
   background-color: @bg; 
-  text-color: @fg; 
+  text-color: @sel; 
   padding: 6px 10px; 
 }
-
