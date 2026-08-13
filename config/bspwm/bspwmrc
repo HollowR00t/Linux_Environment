@@ -42,3 +42,5 @@ bspc rule -a burp-StartBurp	state=floating
 
 sleep 1
 ~/.config/polybar/launch.sh &
+
+xsetroot -cursor_name left_ptr &
